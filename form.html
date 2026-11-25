@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personnel Submission Form</title>
+  <style>
+    :root {
+      --bg-page: #f4f6f9;
+      --bg-card: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #cbd5e1;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --success-bg: #ecfdf5;
+      --success-border: #10b981;
+      --success-text: #065f46;
+      --error-bg: #fef2f2;
+      --error-border: #ef4444;
+      --error-text: #991b1b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .nav-link {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: var(--bg-card);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background-color 0.15s, border-color 0.15s;
+    }
+
+    .nav-link:hover {
+      background-color: #eff6ff;
+      border-color: var(--primary);
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--text-main);
+    }
+
+    .card-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 1.15rem;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text-main);
+    }
+
+    .hint {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background-color: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15);
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 6px;
+      padding: 0.65rem 1.25rem;
+      transition: background-color 0.15s, opacity 0.15s;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      flex: 1;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background-color: #f8fafc;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .status-box {
+      display: none;
+      padding: 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      margin-top: 1.25rem;
+      border: 1px solid transparent;
+    }
+
+    .status-box.success {
+      display: block;
+      background-color: var(--success-bg);
+      border-color: var(--success-border);
+      color: var(--success-text);
+    }
+
+    .status-box.error {
+      display: block;
+      background-color: var(--error-bg);
+      border-color: var(--error-border);
+      color: var(--error-text);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Personnel Intake Form</h1>
+      <a href="index.html" class="nav-link">View Stored Records &rarr;</a>
+    </header>
+
+    <form id="submissionForm">
+      <!-- Session GitHub Configuration -->
+      <div class="card">
+        <div class="card-title">GitHub Session Configuration</div>
+        <div class="card-subtitle">
+          Credentials are held in browser session storage only and cleared automatically when this tab closes.
+        </div>
+
+        <div class="form-group">
+          <label for="ghToken">GitHub API Key (Personal Access Token)</label>
+          <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx or github_pat_..." required />
+          <span class="hint">Requires <strong>Contents: Read and write</strong> permission on the target repository.</span>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="ghOwner">GitHub Username / Owner</label>
+            <input type="text" id="ghOwner" placeholder="e.g., Projection-Solutions" required />
+          </div>
+
+          <div class="form-group">
+            <label for="ghRepo">Repository Name</label>
+            <input type="text" id="ghRepo" placeholder="e.g., personnel-roster" required />
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1rem;">
+          <div class="form-group">
+            <label for="ghBranch">Branch</label>
+            <input type="text" id="ghBranch" value="main" placeholder="main" required />
+          </div>
+
+          <div class="form-group">
+            <label for="ghPath">JSON File Path in Repo</label>
+            <input type="text" id="ghPath" value="submissions.json" placeholder="submissions.json" required />
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Form Questions -->
+      <div class="card">
+        <div class="card-title">Personnel Information</div>
+        <div class="card-subtitle">Complete all three fields below to append a record to the repository JSON file.</div>
+
+        <div class="form-group">
+          <label for="fullName">1. What is your name (Last, First and Middle Initial)?</label>
+          <input type="text" id="fullName" placeholder="e.g., Doe, John A." required />
+        </div>
+
+        <div class="form-group">
+          <label for="employmentStatus">2. What is your employment status?</label>
+          <select id="employmentStatus" required>
+            <option value="" disabled selected>Select employment status...</option>
+            <option value="Military">Military</option>
+            <option value="Contractor">Contractor</option>
+            <option value="GS">GS</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="serviceSection">3. What is your service section?</label>
+          <select id="serviceSection" required>
+            <option value="" disabled selected>Select service section...</option>
+            <option value="Operations">Operations</option>
+            <option value="Education">Education</option>
+            <option value="Support">Support</option>
+            <option value="Surgery">Surgery</option>
+          </select>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" id="clearSessionBtn" class="btn-secondary">Clear Session Key</button>
+          <button type="submit" id="submitBtn" class="btn-primary">Submit Entry to GitHub</button>
+        </div>
+
+        <div id="statusBox" class="status-box" role="alert"></div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const SESSION_KEYS = {
+      token: 'gh_session_token',
+      owner: 'gh_session_owner',
+      repo: 'gh_session_repo',
+      branch: 'gh_session_branch',
+      path: 'gh_session_path'
+    };
+
+    const form = document.getElementById('submissionForm');
+    const ghTokenInput = document.getElementById('ghToken');
+    const ghOwnerInput = document.getElementById('ghOwner');
+    const ghRepoInput = document.getElementById('ghRepo');
+    const ghBranchInput = document.getElementById('ghBranch');
+    const ghPathInput = document.getElementById('ghPath');
+    const submitBtn = document.getElementById('submitBtn');
+    const clearSessionBtn = document.getElementById('clearSessionBtn');
+    const statusBox = document.getElementById('statusBox');
+
+    // Restore session values if present
+    window.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem(SESSION_KEYS.token)) ghTokenInput.value = sessionStorage.getItem(SESSION_KEYS.token);
+      if (sessionStorage.getItem(SESSION_KEYS.owner)) ghOwnerInput.value = sessionStorage.getItem(SESSION_KEYS.owner);
+      if (sessionStorage.getItem(SESSION_KEYS.repo)) ghRepoInput.value = sessionStorage.getItem(SESSION_KEYS.repo);
+      if (sessionStorage.getItem(SESSION_KEYS.branch)) ghBranchInput.value = sessionStorage.getItem(SESSION_KEYS.branch);
+      if (sessionStorage.getItem(SESSION_KEYS.path)) ghPathInput.value = sessionStorage.getItem(SESSION_KEYS.path);
+    });
+
+    function saveSessionConfig() {
+      sessionStorage.setItem(SESSION_KEYS.token, ghTokenInput.value.trim());
+      sessionStorage.setItem(SESSION_KEYS.owner, ghOwnerInput.value.trim());
+      sessionStorage.setItem(SESSION_KEYS.repo, ghRepoInput.value.trim());
+      sessionStorage.setItem(SESSION_KEYS.branch, ghBranchInput.value.trim());
+      sessionStorage.setItem(SESSION_KEYS.path, ghPathInput.value.trim().replace(/^\/+/, ''));
+    }
+
+    clearSessionBtn.addEventListener('click', () => {
+      Object.values(SESSION_KEYS).forEach(k => sessionStorage.removeItem(k));
+      ghTokenInput.value = '';
+      showStatus('Session GitHub API key and repository settings cleared from browser memory.', 'success');
+    });
+
+    function showStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = `status-box ${type}`;
+    }
+
+    // UTF-8 safe Base64 helpers
+    function encodeBase64UTF8(str) {
+      const bytes = new TextEncoder().encode(str);
+      let binary = '';
+      for (let i = 0; i < bytes.byteLength; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary);
+    }
+
+    function decodeBase64UTF8(base64) {
+      const cleanBase64 = base64.replace(/\s/g, '');
+      const binary = atob(cleanBase64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      return new TextDecoder().decode(bytes);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      saveSessionConfig();
+
+      const token = ghTokenInput.value.trim();
+      const owner = ghOwnerInput.value.trim();
+      const repo = ghRepoInput.value.trim();
+      const branch = ghBranchInput.value.trim() || 'main';
+      const filePath = ghPathInput.value.trim().replace(/^\/+/, '') || 'submissions.json';
+
+      const newEntry = {
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+        submittedAt: new Date().toISOString(),
+        name: document.getElementById('fullName').value.trim(),
+        employmentStatus: document.getElementById('employmentStatus').value,
+        serviceSection: document.getElementById('serviceSection').value
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting to GitHub...';
+      statusBox.className = 'status-box';
+
+      const apiUrl = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${filePath.split('/').map(encodeURIComponent).join('/')}`;
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Content-Type': 'application/json'
+      };
+
+      try {
+        let existingRecords = [];
+        let fileSha = null;
+
+        // 1. Fetch existing JSON file (if it exists)
+        const getResponse = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, {
+          method: 'GET',
+          headers
+        });
+
+        if (getResponse.status === 200) {
+          const fileData = await getResponse.json();
+          fileSha = fileData.sha;
+          const decodedContent = decodeBase64UTF8(fileData.content);
+          try {
+            const parsed = JSON.parse(decodedContent);
+            if (Array.isArray(parsed)) {
+              existingRecords = parsed;
+            } else {
+              throw new Error('Existing JSON file does not contain an array.');
+            }
+          } catch (parseErr) {
+            throw new Error(`Could not parse existing ${filePath}: ${parseErr.message}`);
+          }
+        } else if (getResponse.status !== 404) {
+          const errData = await getResponse.json().catch(() => ({}));
+          throw new Error(errData.message || `GitHub API GET error (${getResponse.status})`);
+        }
+
+        // 2. Append new entry
+        existingRecords.push(newEntry);
+        const updatedJsonString = JSON.stringify(existingRecords, null, 2) + '\n';
+        const encodedContent = encodeBase64UTF8(updatedJsonString);
+
+        // 3. Commit updated JSON file back to GitHub
+        const putBody = {
+          message: `Add submission for ${newEntry.name}`,
+          content: encodedContent,
+          branch: branch
+        };
+
+        if (fileSha) {
+          putBody.sha = fileSha;
+        }
+
+        const putResponse = await fetch(apiUrl, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify(putBody)
+        });
+
+        if (!putResponse.ok) {
+          const errData = await putResponse.json().catch(() => ({}));
+          throw new Error(errData.message || `GitHub API PUT error (${putResponse.status})`);
+        }
+
+        // Reset only the 3 question inputs; keep GitHub session credentials intact
+        document.getElementById('fullName').value = '';
+        document.getElementById('employmentStatus').selectedIndex = 0;
+        document.getElementById('serviceSection').selectedIndex = 0;
+
+        showStatus(
+          `Success! Record for "${newEntry.name}" saved to ${owner}/${repo}/${filePath} (${branch}). Note: GitHub Pages may take 30–60 seconds to rebuild and reflect the update on index.html.`,
+          'success'
+        );
+      } catch (err) {
+        showStatus(`Submission failed: ${err.message}`, 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Entry to GitHub';
+      }
+    });
+  </script>
+</body>
+</html>
